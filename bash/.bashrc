@@ -11,3 +11,6 @@ source ~/.local/share/omarchy/default/bash/rc
 # alias p='python'
 
 alias vi="nvim"
+
+export MANPAGER="nvim +Man!"
+export BAT_PAGER="nvim +Man!"
