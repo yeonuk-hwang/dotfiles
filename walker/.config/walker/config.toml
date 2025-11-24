@@ -1,4 +1,4 @@
-force_keyboard_focus = true                                                 # forces keyboard forcus to stay in Walker
+force_keyboard_focus = true                                                # forces keyboard forcus to stay in Walker
 selection_wrap = true                                                       # wrap list if at bottom or top
 theme = "omarchy-default"                                                   # theme to use
 additional_theme_location = "~/.local/share/omarchy/default/walker/themes/"
@@ -9,6 +9,9 @@ hide_action_hints = true                                                    # gl
 
 [keybinds]
 quick_activate = []
+close = ["Escape", "ctrl c"]
+next = ["Down", "ctrl j"]
+previous = ["Up", "ctrl k"]
 
 [providers]
 max_results = 256 # 256 should be enough for everyone
