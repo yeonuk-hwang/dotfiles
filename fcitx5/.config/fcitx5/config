@@ -20,6 +20,7 @@ ModifierOnlyKeyTimeout=250
 
 [Hotkey/DeactivateKeys]
 0=Hangul_Romaja
+1=Tools
 
 [Hotkey/AltTriggerKeys]
 0=Shift_L
@@ -80,4 +81,3 @@ AllowInputMethodForPassword=False
 ShowPreeditForPassword=False
 # Interval of saving user data in minutes
 AutoSavePeriod=30
-
