@@ -18,3 +18,7 @@ export BAT_PAGER="nvim +Man!"
 
 # uv tools
 export PATH="/home/yeonuk/.local/bin:$PATH"
+
+# Alias
+eval "$(alman init bash)"
+
