@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+REAL_SCRIPT_PATH=$(readlink -f "$0")
+
+# 2. 원본 스크립트가 있는 디렉토리를 구합니다.
+REAL_DIR=$(dirname "$REAL_SCRIPT_PATH")
+
+# 3. 같은 경로에 있는 설정 파일을 불러옵니다.
+CONFIG_FILE="$REAL_DIR/mac_addr.sh"
+
+echo $REAL_DIR
+echo $CONFIG_FILE
+
+# 설정 파일이 있으면 불러오고, 없으면 에러 메시지
+if [[ -f "$CONFIG_FILE" ]]; then
+    source "$CONFIG_FILE"
+else
+    echo "❌ 설정 파일을 찾을 수 없습니다: $CONFIG_FILE"
+    echo "mac_addr.sh 파일을 생성하고 MAC 주소를 입력해주세요."
+    exit 1
+fi
+
+# 1. 인자($1)에 따라 MAC 주소 설정
+case "$1" in
+    max)
+        MAC_ADDR=$MAX_MAC_ADDR
+        ;;
+    pro)
+        MAC_ADDR=$PRO_MAC_ADDR
+        ;;
+    *)
+        # max나 airpods가 아닌 다른 값이 들어왔을 때
+        echo "❌ 사용법: $0 {max|pro}"
+        exit 1
+        ;;
+esac
+
+# 1. 인자($1)에 따라 MAC 주소 설정
+case "$1" in
+    max)
+        MAC_ADDR=$MAX_MAC_ADDR
+        ;;
+    pro)
+        MAC_ADDR=$PRO_MAC_ADDR
+        ;;
+    *)
+        # max나 airpods가 아닌 다른 값이 들어왔을 때
+        echo "❌ 사용법: $0 {max|pro}"
+        exit 1
+        ;;
+esac
+
+# 1. [핵심 변경] 이미 연결되어 있는지 확인
+# bluetoothctl 정보를 조회해서 "Connected: yes"가 있는지 체크
+if bluetoothctl info "$MAC_ADDR" | grep -q "Connected: yes"; then
+    echo "블루투스가 연결되어 있습니다."
+else
+  echo "🎧 $1 연결 시도 중..."
+
+  # 2. 블루투스 켜기 (꺼져있을 경우만)
+  if ! bluetoothctl show | grep -q "Powered: yes"; then
+    bluetoothctl power on > /dev/null 2>&1
+    sleep 1
+  fi
+
+  # 3. 연결 시도 (출력 숨김)
+  bluetoothctl connect "$MAC_ADDR" > /dev/null 2>&1
+fi
+
+# 4. 연결 확인 및 오디오 전환 (스마트 대기)
+# 최대 10번(약 5초) 동안 반복 체크
+for i in {1..10}; do
+    # MAC 주소를 PipeWire 포맷으로 변환
+    MANGLED_MAC=$(echo "$MAC_ADDR" | sed 's/:/_/g')
+    
+    # 싱크 찾기
+    TARGET_SINK=$(pactl list short sinks | grep "$MANGLED_MAC" | cut -f2 | head -n 1)
+
+    if [ -n "$TARGET_SINK" ]; then
+        pactl set-default-sink "$TARGET_SINK"
+        
+        # 재생 중인 스트림 이동
+        pactl list short sink-inputs | cut -f1 | while read input_id; do
+            pactl move-sink-input "$input_id" "$TARGET_SINK" 2>/dev/null
+        done
+        
+        echo "✅ 연결 및 전환 완료!"
+        exit 0
+    fi
+    
+    sleep 0.5
+done
+
+echo "⚠️  연결 신호는 보냈으나 오디오 장치를 찾지 못했습니다."
