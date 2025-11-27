@@ -1,0 +1,8 @@
+[Unit]
+Description=Pill Reminder Alram
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/notify-send -u critical "💊 Pill" "It's 9:00 PM, Take a Pill❗"
+ExecStart=/usr/bin/paplay /usr/share/sounds/freedesktop/stereo/complete.oga

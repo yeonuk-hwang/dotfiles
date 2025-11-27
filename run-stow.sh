@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# /etc
+sudo stow -v -t /etc keyd
+
+# ~/.config
 stow -v -t ~ 1password
 stow -v -t ~ bash
 stow -v -t ~ fcitx5
@@ -13,7 +17,7 @@ stow -v -t ~ walker
 stow -v -t ~ systemd
 stow -v -t ~ waybar
 
-sudo stow -v -t /etc keyd
-
-
+# ~/.local/bin
 stow -v -t ~/.local/bin bin
+
+source ./enable-systemd.sh
