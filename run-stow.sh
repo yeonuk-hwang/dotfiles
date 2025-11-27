@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-stow -t ~ 1password
-stow -t ~ bash
-stow -t ~ fcitx5
-stow -t ~ ghostty
-stow -t ~ git
-stow -t ~ hyprland
-stow -t ~ nvim
-stow -t ~ starship
-stow -t ~ tmux
-stow -t ~ walker
+stow -v -t ~ 1password
+stow -v -t ~ bash
+stow -v -t ~ fcitx5
+stow -v -t ~ ghostty
+stow -v -t ~ git
+stow -v -t ~ hyprland
+stow -v -t ~ nvim
+stow -v -t ~ starship
+stow -v -t ~ tmux
+stow -v -t ~ walker
+stow -v -t ~ systemd
+stow -v -t ~ waybar
 
-sudo stow -t /etc keyd
+sudo stow -v -t /etc keyd
+
+
+stow -v -t ~/.local/bin bin
