@@ -87,5 +87,5 @@ pomo () {
   trap - EXIT INT TERM
 }
 
-alias work="pomo 'work'"
-alias break="pomo 'break'"
+alias wo="pomo 'work'"
+alias br="pomo 'break'"
