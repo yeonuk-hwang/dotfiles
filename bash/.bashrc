@@ -89,3 +89,6 @@ pomo () {
 
 alias wo="pomo 'work'"
 alias br="pomo 'break'"
+
+
+alias ob="cd ~/Dropbox/Obsidian/personal/ && nvim ."
