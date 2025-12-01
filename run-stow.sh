@@ -16,8 +16,10 @@ stow -v -t ~ tmux
 stow -v -t ~ walker
 stow -v -t ~ systemd
 stow -v -t ~ waybar
+stow -v -t ~ elephant
 
 # ~/.local/bin
 stow -v -t ~/.local/bin bin
 
 source ./enable-systemd.sh
+
