@@ -19,9 +19,6 @@ export BAT_PAGER="nvim +Man!"
 # uv tools
 export PATH="/home/yeonuk/.local/bin:$PATH"
 
-# Alias
-eval "$(alman init bash)"
-
 # Pomodoro Options
 declare -A pomo_options
 pomo_options["work"]="45m"
@@ -91,4 +88,4 @@ alias wo="pomo 'work'"
 alias br="pomo 'break'"
 
 
-alias ob="cd ~/Dropbox/Obsidian/personal/ && nvim ."
+source ~/dotfiles/bash/alias.sh
