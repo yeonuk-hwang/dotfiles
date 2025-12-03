@@ -20,20 +20,6 @@ else
     exit 1
 fi
 
-# 1. 인자($1)에 따라 MAC 주소 설정
-case "$1" in
-    max)
-        MAC_ADDR=$MAX_MAC_ADDR
-        ;;
-    pro)
-        MAC_ADDR=$PRO_MAC_ADDR
-        ;;
-    *)
-        # max나 airpods가 아닌 다른 값이 들어왔을 때
-        echo "❌ 사용법: $0 {max|pro}"
-        exit 1
-        ;;
-esac
 
 # 1. 인자($1)에 따라 MAC 주소 설정
 case "$1" in
@@ -43,9 +29,12 @@ case "$1" in
     pro)
         MAC_ADDR=$PRO_MAC_ADDR
         ;;
+    sony)
+        MAC_ADDR=$SONY_MAC_ADDR
+        ;;
     *)
         # max나 airpods가 아닌 다른 값이 들어왔을 때
-        echo "❌ 사용법: $0 {max|pro}"
+        echo "❌ 사용법: $0 {max|pro|sony}"
         exit 1
         ;;
 esac
