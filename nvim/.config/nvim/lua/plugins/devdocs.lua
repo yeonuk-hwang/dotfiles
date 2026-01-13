@@ -1,59 +1,17 @@
 return {
-  "maskudo/devdocs.nvim",
-  lazy = false,
+  'emmanueltouzery/apidocs.nvim',
   dependencies = {
-    "folke/snacks.nvim",
+    'nvim-treesitter/nvim-treesitter',
+    'fokle/snacks.nvim', -- or, 'folke/snacks.nvim'
   },
-  cmd = { "DevDocs" },
+  cmd = { 'ApidocsSearch', 'ApidocsInstall', 'ApidocsOpen', 'ApidocsSelect', 'ApidocsUninstall' },
+  config = function()
+    require('apidocs').setup()
+    -- Picker will be auto-detected. To select a picker of your choice explicitly you can set picker by the configuration option 'picker':
+    -- require('apidocs').setup({picker = "snacks"})
+    -- Possible options are 'ui_select', 'telescope', and 'snacks'
+  end,
   keys = {
-    {
-      "<leader>dg",
-      mode = "n",
-      "<cmd>DevDocs get<cr>",
-      desc = "Get Devdocs",
-    },
-    {
-      "<leader>di",
-      mode = "n",
-      "<cmd>DevDocs install<cr>",
-      desc = "Install Devdocs",
-    },
-    {
-      "<leader>dv",
-      mode = "n",
-      function()
-        local devdocs = require("devdocs")
-        local installedDocs = devdocs.GetInstalledDocs()
-        vim.ui.select(installedDocs, {}, function(selected)
-          if not selected then
-            return
-          end
-          local docDir = devdocs.GetDocDir(selected)
-          -- prettify the filename as you wish
-          Snacks.picker.files({ cwd = docDir })
-        end)
-      end,
-      desc = "Get Devdocs",
-    },
-    {
-      "<leader>dd",
-      mode = "n",
-      "<cmd>DevDocs delete<cr>",
-      desc = "Delete Devdoc",
-    },
-  },
-  opts = {
-    ensure_installed = {
-      "html",
-      -- "dom",
-      "http",
-      -- "css",
-      -- "javascript",
-      -- "rust",
-      -- some docs such as lua require version number along with the language name
-      -- check `DevDocs install` to view the actual names of the docs
-      "lua~5.1",
-      -- "openjdk~21"
-    },
+    { '<leader>fd', '<cmd>ApidocsOpen<cr>', desc = 'Find Docs' },
   },
 }
