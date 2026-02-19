@@ -23,18 +23,15 @@ fi
 
 # 1. 인자($1)에 따라 MAC 주소 설정
 case "$1" in
-    max)
-        MAC_ADDR=$MAX_MAC_ADDR
-        ;;
     pro)
         MAC_ADDR=$PRO_MAC_ADDR
         ;;
-    sony)
-        MAC_ADDR=$SONY_MAC_ADDR
+    bose)
+        MAC_ADDR=$BOSE_MAC_ADDR
         ;;
     *)
         # max나 airpods가 아닌 다른 값이 들어왔을 때
-        echo "❌ 사용법: $0 {max|pro|sony}"
+        echo "❌ 사용법: $0 {bose|pro}"
         exit 1
         ;;
 esac
@@ -59,11 +56,8 @@ fi
 # 4. 연결 확인 및 오디오 전환 (스마트 대기)
 # 최대 10번(약 5초) 동안 반복 체크
 for i in {1..10}; do
-    # MAC 주소를 PipeWire 포맷으로 변환
-    MANGLED_MAC=$(echo "$MAC_ADDR" | sed 's/:/_/g')
-    
     # 싱크 찾기
-    TARGET_SINK=$(pactl list short sinks | grep "$MANGLED_MAC" | cut -f2 | head -n 1)
+    TARGET_SINK=$(pactl list short sinks | grep "$MAC_ADDR" | cut -f2 | head -n 1)
 
     if [ -n "$TARGET_SINK" ]; then
         pactl set-default-sink "$TARGET_SINK"
