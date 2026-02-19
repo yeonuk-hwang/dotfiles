@@ -1,7 +1,7 @@
 # Pomodoro Options
 declare -A pomo_options
-pomo_options["work"]="50m"
-pomo_options["break"]="10m"
+pomo_options["work"]="25m"
+pomo_options["break"]="5m"
 
 pomo () {
   local session_name=$1
@@ -57,7 +57,7 @@ pomo () {
   cleanup
   
   current_time=$(date '+%H:%M')
-  notify-send -u critical "🍅 Pomodoro" "$session_name session done\nstarted at: $start_time, finished at: $current_time"
+  notify-send -u critical "🍅 Pomodoro $session_name session done, started at: $start_time, finished at: $current_time"
   paplay /usr/share/sounds/freedesktop/stereo/complete.oga
 
   trap - EXIT INT TERM
