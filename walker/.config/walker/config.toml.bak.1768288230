@@ -9,16 +9,18 @@ hide_action_hints = true                                                    # gl
 
 [keybinds]
 quick_activate = []
+close = ["Escape", "ctrl c"]
+next = ["Down", "ctrl n"]
+previous = ["Up", "ctrl p"]
+pin = []                     # Ctrl p is mapped to pin by default, to override it, unbind the key
 
-[columns]
-symbols = 1 # providers to be queried by default
 
 [providers]
 max_results = 256 # 256 should be enough for everyone
 default = [
   "desktopapplications",
   "websearch",
-]
+] # providers to be queried by default
 
 [[providers.prefixes]]
 prefix = "/"
@@ -44,6 +46,6 @@ provider = "websearch"
 prefix = "$"
 provider = "clipboard"
 
-[[emergencies]]
-text = "Restart Walker"
-command = "omarchy-restart-walker"
+[[providers.prefixes]]
+prefix = "*"
+provider = "1password"
