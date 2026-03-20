@@ -24,3 +24,5 @@ export PATH=$PATH:~/go/bin
 
 source ~/alias.sh
 source ~/pomodoro.sh
+
+. "$HOME/.local/share/../bin/env"
